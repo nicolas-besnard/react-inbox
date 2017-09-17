@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+const ConversationItem = () => (
+  <li className="conversations-list-item">
+    <a className="conversation-link" href="">
+      <div className="username">Foo</div>
+      <div className="snippet">Bar</div>
+    </a>
+  </li>
+);
+
 class App extends Component {
+  renderConversationItem() {
+    let items = [];
+
+    for (let i = 0; i < 20; i++) {
+      items.push(<ConversationItem key={i} />);
+    }
+
+    return items;
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="inbox-container">
+        <div className="conversations-list-container">
+          <ul className="conversations-list">
+            {this.renderConversationItem()}
+          </ul>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="conversation-content">
+          content
+        </div>
       </div>
     );
   }
