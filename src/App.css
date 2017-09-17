@@ -12,6 +12,16 @@
   width: 35%;
 }
 
+@media screen and (max-width: 768px) {
+  .conversations-list-container.active {
+    display: none;
+  }
+
+  .conversations-list-container {
+    width: 100%;
+  }
+}
+
 .conversations-list {
   list-style: none;
   margin: 0;
