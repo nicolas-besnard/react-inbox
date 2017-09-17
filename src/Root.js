@@ -1,20 +1,22 @@
 import React from 'react';
 import App from './App';
+import { Provider } from 'react-redux';
 
-// import { Router, Route} from 'react-router';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
 
-const Root = () => (
-  <Router>
-    <Switch>
-      <Route exact path='/' component={App} />
-      <Route path="/message/:messageId" component={App} />
-    </Switch>
-  </Router>
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path='/' component={App} />
+        <Route path="/message/:messageId" component={App} />
+      </Switch>
+    </Router>
+  </Provider>
 );
 
 export default Root;

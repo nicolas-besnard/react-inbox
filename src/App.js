@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect  } from 'react-redux';
 import './App.css';
 
 import ConversationItem from './ConversationItem';
+
+import * as conversationActions from './Actions/conversations';
 
 const MESSAGE_PATH = '/message/:messageId';
 
@@ -22,17 +25,21 @@ class App extends Component {
   }
 
   componentWillMount() {
+    if (this.props.conversations.length === 0) {
+      const { fetchConversations } = this.props;
+      fetchConversations();
+    }
     if (this.hasMessageSelected()) {
-      console.log('Should Fetch Message');
-      // Fetch Message
+      console.log('[componentWillMount] Should Fetch Message');
     }
   }
 
   renderConversationItem() {
     let items = [];
+    const { conversations } = this.props;
 
-    for (let i = 0; i < 20; i++) {
-      items.push(<ConversationItem key={i} id={i} {...this.props}/>);
+    for (let conversation of conversations) {
+      items.push(<ConversationItem key={conversation.id} id={conversation.id} />);
     }
 
     return items;
@@ -65,4 +72,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    conversations: conversationActions.getConversations(state)
+  };
+};
+
+const mapDispatchToProps = ({
+  fetchConversations: conversationActions.fetchConversations
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
